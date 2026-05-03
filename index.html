@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Flowering Star – Flores que brillan para siempre</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cellipse cx='50' cy='50' rx='14' ry='38' fill='%23FADADD' transform='rotate(0,50,50)'/%3E%3Cellipse cx='50' cy='50' rx='14' ry='38' fill='%23FADADD' transform='rotate(45,50,50)'/%3E%3Cellipse cx='50' cy='50' rx='14' ry='38' fill='%23FADADD' transform='rotate(90,50,50)'/%3E%3Cellipse cx='50' cy='50' rx='14' ry='38' fill='%23FADADD' transform='rotate(135,50,50)'/%3E%3Cellipse cx='50' cy='50' rx='8' ry='28' fill='%23FFF4B8' transform='rotate(22.5,50,50)'/%3E%3Cellipse cx='50' cy='50' rx='8' ry='28' fill='%23FFF4B8' transform='rotate(67.5,50,50)'/%3E%3Cellipse cx='50' cy='50' rx='8' ry='28' fill='%23FFF4B8' transform='rotate(112.5,50,50)'/%3E%3Cellipse cx='50' cy='50' rx='8' ry='28' fill='%23FFF4B8' transform='rotate(157.5,50,50)'/%3E%3Cpath d='M50 36 C53 43 57 47 64 50 C57 53 53 57 50 64 C47 57 43 53 36 50 C43 47 47 43 50 36Z' fill='%23E8C96B'/%3E%3Ccircle cx='50' cy='50' r='9' fill='%23C9A84C'/%3E%3Ccircle cx='50' cy='50' r='4' fill='%23FFF4B8'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -56,12 +57,10 @@
   nav.scrolled { box-shadow: 0 4px 30px rgba(201,168,76,0.12); }
 
   .nav-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.6rem;
-    font-weight: 600;
-    color: var(--text-dark);
-    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
     text-decoration: none;
+    flex-shrink: 0;
   }
   .nav-logo span { color: var(--gold); }
 
@@ -581,7 +580,42 @@
 
 <!-- ── NAV ── -->
 <nav id="main-nav">
-  <a href="#" class="nav-logo">Flowering<span>★</span>Star</a>
+  <a href="#" class="nav-logo">
+    <svg width="140" height="44" viewBox="0 0 280 88" xmlns="http://www.w3.org/2000/svg">
+      <!-- pétalos rosados -->
+      <g transform="translate(44,44)">
+        <ellipse rx="7" ry="24" cy="-27" fill="#FADADD" stroke="#F0C0C8" stroke-width="0.5" transform="rotate(0)"/>
+        <ellipse rx="7" ry="24" cy="-27" fill="#FADADD" stroke="#F0C0C8" stroke-width="0.5" transform="rotate(45)"/>
+        <ellipse rx="7" ry="24" cy="-27" fill="#FADADD" stroke="#F0C0C8" stroke-width="0.5" transform="rotate(90)"/>
+        <ellipse rx="7" ry="24" cy="-27" fill="#FADADD" stroke="#F0C0C8" stroke-width="0.5" transform="rotate(135)"/>
+        <ellipse rx="7" ry="24" cy="-27" fill="#FADADD" stroke="#F0C0C8" stroke-width="0.5" transform="rotate(180)"/>
+        <ellipse rx="7" ry="24" cy="-27" fill="#FADADD" stroke="#F0C0C8" stroke-width="0.5" transform="rotate(225)"/>
+        <ellipse rx="7" ry="24" cy="-27" fill="#FADADD" stroke="#F0C0C8" stroke-width="0.5" transform="rotate(270)"/>
+        <ellipse rx="7" ry="24" cy="-27" fill="#FADADD" stroke="#F0C0C8" stroke-width="0.5" transform="rotate(315)"/>
+      </g>
+      <!-- pétalos dorados -->
+      <g transform="translate(44,44)">
+        <ellipse rx="4.5" ry="17" cy="-20" fill="#FFF4B8" stroke="#E8C96B" stroke-width="0.5" transform="rotate(22.5)"/>
+        <ellipse rx="4.5" ry="17" cy="-20" fill="#FFF4B8" stroke="#E8C96B" stroke-width="0.5" transform="rotate(67.5)"/>
+        <ellipse rx="4.5" ry="17" cy="-20" fill="#FFF4B8" stroke="#E8C96B" stroke-width="0.5" transform="rotate(112.5)"/>
+        <ellipse rx="4.5" ry="17" cy="-20" fill="#FFF4B8" stroke="#E8C96B" stroke-width="0.5" transform="rotate(157.5)"/>
+        <ellipse rx="4.5" ry="17" cy="-20" fill="#FFF4B8" stroke="#E8C96B" stroke-width="0.5" transform="rotate(202.5)"/>
+        <ellipse rx="4.5" ry="17" cy="-20" fill="#FFF4B8" stroke="#E8C96B" stroke-width="0.5" transform="rotate(247.5)"/>
+        <ellipse rx="4.5" ry="17" cy="-20" fill="#FFF4B8" stroke="#E8C96B" stroke-width="0.5" transform="rotate(292.5)"/>
+        <ellipse rx="4.5" ry="17" cy="-20" fill="#FFF4B8" stroke="#E8C96B" stroke-width="0.5" transform="rotate(337.5)"/>
+      </g>
+      <!-- estrella centro -->
+      <g transform="translate(44,44)">
+        <path d="M0,-10 C2,-4 4,-2 10,0 C4,2 2,4 0,10 C-2,4 -4,2 -10,0 C-4,-2 -2,-4 0,-10Z" fill="#E8C96B"/>
+      </g>
+      <circle cx="44" cy="44" r="6" fill="#C9A84C"/>
+      <circle cx="44" cy="44" r="2.5" fill="#FFF4B8"/>
+      <!-- texto -->
+      <text x="98" y="37" font-family="Georgia,'Times New Roman',serif" font-size="16" font-weight="400" fill="#3A2E35" letter-spacing="2.5">FLOWERING</text>
+      <text x="98" y="58" font-family="Georgia,'Times New Roman',serif" font-size="16" font-weight="400" fill="#C9A84C" letter-spacing="5">STAR</text>
+      <text x="98" y="72" font-family="Georgia,'Times New Roman',serif" font-size="7.5" font-weight="400" fill="#B09AA8" letter-spacing="2.5">FLORES ETERNAS</text>
+    </svg>
+  </a>
   <ul class="nav-links">
     <li><a href="#catalogo">Catálogo</a></li>
     <li><a href="#galeria">Galería</a></li>
@@ -600,7 +634,10 @@
   <div class="blob blob-2"></div>
 
   <div class="hero-content">
-    <div class="hero-eyebrow">✦ Flores Eternas Premium</div>
+    <div class="hero-eyebrow" style="gap:12px;align-items:center;">
+      <svg width="28" height="28" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg"><g transform="translate(28,28)"><ellipse rx="6" ry="20" cy="-23" fill="#FADADD" stroke="#E8B8BE" stroke-width="0.5" transform="rotate(0)"/><ellipse rx="6" ry="20" cy="-23" fill="#FADADD" stroke="#E8B8BE" stroke-width="0.5" transform="rotate(45)"/><ellipse rx="6" ry="20" cy="-23" fill="#FADADD" stroke="#E8B8BE" stroke-width="0.5" transform="rotate(90)"/><ellipse rx="6" ry="20" cy="-23" fill="#FADADD" stroke="#E8B8BE" stroke-width="0.5" transform="rotate(135)"/><ellipse rx="6" ry="20" cy="-23" fill="#FADADD" stroke="#E8B8BE" stroke-width="0.5" transform="rotate(180)"/><ellipse rx="6" ry="20" cy="-23" fill="#FADADD" stroke="#E8B8BE" stroke-width="0.5" transform="rotate(225)"/><ellipse rx="6" ry="20" cy="-23" fill="#FADADD" stroke="#E8B8BE" stroke-width="0.5" transform="rotate(270)"/><ellipse rx="6" ry="20" cy="-23" fill="#FADADD" stroke="#E8B8BE" stroke-width="0.5" transform="rotate(315)"/><ellipse rx="3.5" ry="14" cy="-16" fill="#FFF4B8" stroke="#E8C96B" stroke-width="0.5" transform="rotate(22.5)"/><ellipse rx="3.5" ry="14" cy="-16" fill="#FFF4B8" stroke="#E8C96B" stroke-width="0.5" transform="rotate(67.5)"/><ellipse rx="3.5" ry="14" cy="-16" fill="#FFF4B8" stroke="#E8C96B" stroke-width="0.5" transform="rotate(112.5)"/><ellipse rx="3.5" ry="14" cy="-16" fill="#FFF4B8" stroke="#E8C96B" stroke-width="0.5" transform="rotate(157.5)"/><ellipse rx="3.5" ry="14" cy="-16" fill="#FFF4B8" stroke="#E8C96B" stroke-width="0.5" transform="rotate(202.5)"/><ellipse rx="3.5" ry="14" cy="-16" fill="#FFF4B8" stroke="#E8C96B" stroke-width="0.5" transform="rotate(247.5)"/><ellipse rx="3.5" ry="14" cy="-16" fill="#FFF4B8" stroke="#E8C96B" stroke-width="0.5" transform="rotate(292.5)"/><ellipse rx="3.5" ry="14" cy="-16" fill="#FFF4B8" stroke="#E8C96B" stroke-width="0.5" transform="rotate(337.5)"/><path d="M0,-8 C2,-3 3,-2 8,0 C3,2 2,3 0,8 C-2,3 -3,2 -8,0 C-3,-2 -2,-3 0,-8Z" fill="#E8C96B"/><circle r="5" fill="#C9A84C"/><circle r="2" fill="#FFF4B8"/></g></svg>
+      Flores Eternas Premium
+    </div>
     <h1>Flores que <em>brillan</em><br>para siempre</h1>
     <p class="hero-desc">Flores reales, preservadas a mano, que duran años sin agua ni cuidados. Para los momentos que merecen algo más que una semana.</p>
     <div class="hero-cta">
