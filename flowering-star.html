@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flowering Star – Flores que brillan para siempre</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rose: #FADADD;
+    --yellow: #FFF4B8;
+    --beige: #F5E6DA;
+    --white: #FFFFFF;
+    --gold: #C9A84C;
+    --gold-light: #E8C96B;
+    --text-dark: #3A2E35;
+    --text-mid: #7A6070;
+    --text-light: #B09AA8;
+    --grad-hero: linear-gradient(135deg, #FADADD 0%, #FFF4B8 50%, #F5E6DA 100%);
+    --grad-btn: linear-gradient(135deg, #C9A84C 0%, #E8C96B 100%);
+    --grad-accent: linear-gradient(135deg, #FADADD 0%, #FFF4B8 100%);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--white);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* ── BLOBS DECORATIVOS ── */
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    padding: 18px 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+    transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: 0 4px 30px rgba(201,168,76,0.12); }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--gold); }
+
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-mid);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  .nav-cart-btn {
+    position: relative;
+    background: var(--grad-btn);
+    border: none; border-radius: 50px;
+    padding: 10px 22px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.82rem; font-weight: 600;
+    letter-spacing: 0.04em;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex; align-items: center; gap: 8px;
+    box-shadow: 0 4px 15px rgba(201,168,76,0.35);
+  }
+  .nav-cart-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(201,168,76,0.45); }
+  .cart-badge {
+    background: var(--text-dark);
+    color: white;
+    border-radius: 50%;
+    width: 20px; height: 20px;
+    font-size: 0.7rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .cart-badge.pop { transform: scale(1.4); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    padding: 120px 5% 80px;
+    background: var(--grad-hero);
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .hero .blob-1 { width: 500px; height: 500px; background: #FADADD; top: -100px; right: -100px; }
+  .hero .blob-2 { width: 350px; height: 350px; background: #FFF4B8; bottom: -50px; left: 10%; }
+
+  .hero-content { position: relative; z-index: 1; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 20px;
+    opacity: 0; animation: fadeUp 0.7s 0.2s forwards;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block; width: 24px; height: 1px; background: var(--gold);
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--text-dark);
+    margin-bottom: 24px;
+    opacity: 0; animation: fadeUp 0.7s 0.35s forwards;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: transparent;
+    background: linear-gradient(135deg, #C9A84C, #E8C96B, #FADADD);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  .hero-desc {
+    font-size: 1.05rem; font-weight: 300; line-height: 1.7;
+    color: var(--text-mid); max-width: 420px; margin-bottom: 36px;
+    opacity: 0; animation: fadeUp 0.7s 0.5s forwards;
+  }
+
+  .hero-cta {
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 0.7s 0.65s forwards;
+  }
+
+  .btn-primary {
+    background: var(--grad-btn);
+    border: none; border-radius: 50px;
+    padding: 16px 36px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.9rem; font-weight: 600; letter-spacing: 0.04em;
+    color: white; cursor: pointer;
+    box-shadow: 0 8px 25px rgba(201,168,76,0.4);
+    transition: transform 0.25s, box-shadow 0.25s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 35px rgba(201,168,76,0.5); }
+
+  .btn-ghost {
+    background: transparent;
+    border: 1.5px solid rgba(201,168,76,0.4);
+    border-radius: 50px;
+    padding: 15px 32px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.9rem; font-weight: 500;
+    color: var(--text-mid); cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.06); }
+
+  .hero-img-wrap {
+    position: relative; z-index: 1;
+    opacity: 0; animation: fadeIn 1s 0.4s forwards;
+  }
+  .hero-img-wrap img {
+    width: 100%; border-radius: 30px;
+    box-shadow: 0 30px 70px rgba(58,46,53,0.18);
+    transition: transform 0.6s ease;
+  }
+  .hero-img-wrap:hover img { transform: scale(1.02) rotate(0.5deg); }
+
+  .hero-badges {
+    position: absolute; bottom: -20px; left: -20px;
+    display: flex; gap: 10px; flex-wrap: wrap;
+  }
+  .badge {
+    background: white;
+    border-radius: 50px;
+    padding: 10px 18px;
+    font-size: 0.78rem; font-weight: 600;
+    color: var(--text-dark);
+    box-shadow: 0 6px 20px rgba(58,46,53,0.1);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .badge-icon { font-size: 1rem; }
+
+  /* ── SECTIONS COMMON ── */
+  section { padding: 100px 5%; }
+  .section-label {
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gold);
+    display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
+  }
+  .section-label::before {
+    content: ''; display: block; width: 20px; height: 1px; background: var(--gold);
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300; line-height: 1.2;
+    color: var(--text-dark); margin-bottom: 16px;
+  }
+  .section-sub {
+    font-size: 1rem; font-weight: 300; line-height: 1.7;
+    color: var(--text-mid); max-width: 500px;
+  }
+
+  /* ── CATALOG ── */
+  #catalogo { background: var(--white); }
+  .catalog-header { text-align: center; margin-bottom: 60px; }
+  .catalog-header .section-label { justify-content: center; }
+  .catalog-header .section-label::before { display: none; }
+  .catalog-header .section-sub { margin: 0 auto; }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 28px;
+  }
+
+  .product-card {
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid rgba(201,168,76,0.12);
+    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.35s;
+    position: relative;
+  }
+  .product-card:hover {
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: 0 25px 60px rgba(58,46,53,0.13);
+  }
+
+  .product-img-wrap {
+    position: relative; overflow: hidden;
+    background: var(--grad-accent);
+    aspect-ratio: 1;
+  }
+  .product-img-wrap img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .product-card:hover .product-img-wrap img { transform: scale(1.08); }
+
+  .product-tag {
+    position: absolute; top: 14px; left: 14px;
+    background: white; border-radius: 50px;
+    padding: 5px 14px; font-size: 0.72rem; font-weight: 600;
+    color: var(--gold); letter-spacing: 0.06em;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+  }
+
+  .product-body { padding: 22px 24px; }
+  .product-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; font-weight: 600;
+    color: var(--text-dark); margin-bottom: 6px;
+  }
+  .product-desc {
+    font-size: 0.82rem; color: var(--text-light);
+    line-height: 1.5; margin-bottom: 16px;
+  }
+  .product-footer { display: flex; align-items: center; justify-content: space-between; }
+  .product-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-weight: 600;
+    color: var(--text-dark);
+  }
+  .product-price sup { font-size: 0.85rem; vertical-align: super; }
+
+  .btn-add {
+    background: var(--grad-btn);
+    border: none; border-radius: 50px;
+    padding: 10px 22px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.8rem; font-weight: 600;
+    color: white; cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 15px rgba(201,168,76,0.3);
+    display: flex; align-items: center; gap: 7px;
+  }
+  .btn-add:hover { transform: scale(1.05); box-shadow: 0 8px 22px rgba(201,168,76,0.45); }
+  .btn-add.added { background: linear-gradient(135deg, #6BCF9B, #4BB87A); }
+
+  /* ── GALLERY ── */
+  #galeria {
+    background: linear-gradient(160deg, var(--rose) 0%, var(--yellow) 100%);
+    position: relative; overflow: hidden;
+  }
+  .gallery-header { margin-bottom: 50px; }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(2, 200px);
+    gap: 16px;
+  }
+  .g-img {
+    border-radius: 20px; overflow: hidden;
+    position: relative; cursor: pointer;
+  }
+  .g-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .g-img:hover img { transform: scale(1.1); }
+  .g-img:nth-child(1) { grid-column: 1 / 5; grid-row: 1 / 3; }
+  .g-img:nth-child(2) { grid-column: 5 / 8; grid-row: 1 / 2; }
+  .g-img:nth-child(3) { grid-column: 8 / 13; grid-row: 1 / 2; }
+  .g-img:nth-child(4) { grid-column: 5 / 9; grid-row: 2 / 3; }
+  .g-img:nth-child(5) { grid-column: 9 / 13; grid-row: 2 / 3; }
+
+  /* ── ABOUT ── */
+  #sobre {
+    background: var(--white);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+  .about-img { position: relative; }
+  .about-img img { width: 100%; border-radius: 30px; box-shadow: 0 25px 60px rgba(58,46,53,0.14); }
+  .about-img-accent {
+    position: absolute; bottom: -24px; right: -24px;
+    width: 140px; height: 140px;
+    background: var(--grad-accent);
+    border-radius: 50%; z-index: -1;
+  }
+
+  /* ── CONTACT ── */
+  #contacto {
+    background: var(--text-dark);
+    text-align: center; color: white; position: relative; overflow: hidden;
+  }
+  #contacto .blob { opacity: 0.07; }
+  #contacto .section-label { color: var(--gold-light); justify-content: center; }
+  #contacto .section-label::before { background: var(--gold-light); }
+  #contacto .section-title { color: white; text-align: center; }
+  #contacto .section-sub { color: rgba(255,255,255,0.6); margin: 0 auto 50px; }
+
+  .contact-btns { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+
+  .btn-wa {
+    background: #25D366;
+    border: none; border-radius: 50px;
+    padding: 18px 40px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1rem; font-weight: 600;
+    color: white; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 10px;
+    transition: transform 0.25s, box-shadow 0.25s;
+    box-shadow: 0 8px 25px rgba(37,211,102,0.4);
+    text-decoration: none;
+  }
+  .btn-wa:hover { transform: translateY(-3px); box-shadow: 0 14px 35px rgba(37,211,102,0.55); }
+
+  .btn-ig {
+    background: linear-gradient(135deg, #F58529, #DD2A7B, #8134AF);
+    border: none; border-radius: 50px;
+    padding: 18px 40px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1rem; font-weight: 600;
+    color: white; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 10px;
+    transition: transform 0.25s, box-shadow 0.25s;
+    box-shadow: 0 8px 25px rgba(221,42,123,0.4);
+    text-decoration: none;
+  }
+  .btn-ig:hover { transform: translateY(-3px); box-shadow: 0 14px 35px rgba(221,42,123,0.55); }
+
+  /* ── CART DRAWER ── */
+  .cart-overlay {
+    position: fixed; inset: 0; z-index: 1999;
+    background: rgba(58,46,53,0.45);
+    backdrop-filter: blur(4px);
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.35s;
+  }
+  .cart-overlay.open { opacity: 1; pointer-events: all; }
+
+  .cart-drawer {
+    position: fixed; top: 0; right: 0; bottom: 0; z-index: 2000;
+    width: min(420px, 100vw);
+    background: white;
+    box-shadow: -20px 0 60px rgba(58,46,53,0.18);
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    display: flex; flex-direction: column;
+    border-radius: 24px 0 0 24px;
+    overflow: hidden;
+  }
+  .cart-drawer.open { transform: translateX(0); }
+
+  .cart-header {
+    padding: 28px 28px 20px;
+    background: var(--grad-accent);
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+  .cart-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; font-weight: 600; color: var(--text-dark);
+  }
+  .cart-close {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: white; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; color: var(--text-mid);
+    transition: background 0.2s, color 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .cart-close:hover { background: var(--text-dark); color: white; }
+
+  .cart-items { flex: 1; overflow-y: auto; padding: 20px 28px; }
+
+  .cart-empty {
+    text-align: center; padding: 60px 0;
+    color: var(--text-light);
+  }
+  .cart-empty-icon { font-size: 3.5rem; margin-bottom: 14px; display: block; }
+  .cart-empty p { font-size: 0.9rem; }
+
+  .cart-item {
+    display: flex; gap: 14px; padding: 16px 0;
+    border-bottom: 1px solid rgba(201,168,76,0.12);
+    animation: slideIn 0.3s ease;
+  }
+  .cart-item-img {
+    width: 70px; height: 70px; border-radius: 14px;
+    object-fit: cover; flex-shrink: 0;
+  }
+  .cart-item-info { flex: 1; }
+  .cart-item-name { font-weight: 600; font-size: 0.92rem; color: var(--text-dark); margin-bottom: 4px; }
+  .cart-item-price { font-size: 0.85rem; color: var(--gold); font-weight: 600; }
+  .cart-item-controls {
+    display: flex; align-items: center; gap: 10px; margin-top: 8px;
+  }
+  .qty-btn {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--beige); border: none; cursor: pointer;
+    font-size: 1rem; font-weight: 600; color: var(--text-dark);
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+  }
+  .qty-btn:hover { background: var(--rose); }
+  .qty-num { font-weight: 700; font-size: 0.9rem; min-width: 20px; text-align: center; }
+  .remove-btn {
+    margin-left: auto;
+    background: none; border: none; cursor: pointer;
+    color: var(--text-light); font-size: 0.85rem;
+    transition: color 0.2s;
+  }
+  .remove-btn:hover { color: #E05C5C; }
+
+  .cart-footer { padding: 20px 28px 28px; border-top: 1px solid rgba(201,168,76,0.15); }
+  .cart-subtotal {
+    display: flex; justify-content: space-between;
+    margin-bottom: 8px; font-size: 0.9rem; color: var(--text-mid);
+  }
+  .cart-total {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 22px;
+  }
+  .cart-total-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; font-weight: 600; color: var(--text-dark);
+  }
+  .cart-total-amount {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem; font-weight: 600; color: var(--text-dark);
+  }
+  .btn-checkout {
+    width: 100%;
+    background: #25D366;
+    border: none; border-radius: 50px;
+    padding: 18px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1rem; font-weight: 700;
+    color: white; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 8px 25px rgba(37,211,102,0.4);
+  }
+  .btn-checkout:hover { transform: translateY(-2px); box-shadow: 0 14px 35px rgba(37,211,102,0.55); }
+  .btn-checkout:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #2C2228;
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 30px 5%;
+    font-size: 0.8rem;
+  }
+  footer span { color: var(--gold-light); }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px);
+    background: var(--text-dark);
+    color: white;
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-size: 0.88rem; font-weight: 500;
+    z-index: 3000;
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    white-space: nowrap;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+  }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  .float { animation: float 5s ease-in-out infinite; }
+
+  /* ── MOBILE ── */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; padding: 110px 5% 60px; }
+    .hero-img-wrap { order: -1; }
+    .hero-badges { position: static; margin-top: 16px; }
+    #sobre { grid-template-columns: 1fr; gap: 40px; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    .g-img:nth-child(n) { grid-column: auto; grid-row: auto; }
+    .nav-links { display: none; }
+  }
+  @media (max-width: 600px) {
+    .gallery-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── AI IMAGES via CSS ── */
+  .flower-gradient-1 {
+    background: radial-gradient(ellipse at 30% 40%, #FFB7C5 0%, #FADADD 35%, #FFF0E0 60%, #FFF4B8 100%);
+  }
+  .flower-gradient-2 {
+    background: radial-gradient(ellipse at 60% 30%, #FFF4B8 0%, #FFE4A0 30%, #FADADD 70%, #F5E6DA 100%);
+  }
+  .flower-gradient-3 {
+    background: radial-gradient(ellipse at 40% 60%, #FADADD 0%, #FFB7C5 25%, #FFF4B8 60%, #F5E6DA 100%);
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="main-nav">
+  <a href="#" class="nav-logo">Flowering<span>★</span>Star</a>
+  <ul class="nav-links">
+    <li><a href="#catalogo">Catálogo</a></li>
+    <li><a href="#galeria">Galería</a></li>
+    <li><a href="#sobre">Nosotros</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <button class="nav-cart-btn" onclick="openCart()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+    Carrito <span class="cart-badge" id="cart-badge">0</span>
+  </button>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero" id="inicio">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">✦ Flores Eternas Premium</div>
+    <h1>Flores que <em>brillan</em><br>para siempre</h1>
+    <p class="hero-desc">Flores reales, preservadas a mano, que duran años sin agua ni cuidados. Para los momentos que merecen algo más que una semana.</p>
+    <div class="hero-cta">
+      <a href="#catalogo" class="btn-primary">Ver catálogo ✦</a>
+      <a href="#sobre" class="btn-ghost">Nuestra historia</a>
+    </div>
+  </div>
+
+  <div class="hero-img-wrap float">
+    <img src="https://images.unsplash.com/photo-1487530811015-780bfd4f2f3c?w=700&q=85&auto=format" alt="Arreglo de flores eternas premium" />
+    <div class="hero-badges">
+      <div class="badge"><span class="badge-icon">🌹</span> 100% Naturales</div>
+      <div class="badge"><span class="badge-icon">✨</span> Duran años</div>
+      <div class="badge"><span class="badge-icon">📦</span> Envío express</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CATALOG ── -->
+<section id="catalogo">
+  <div class="catalog-header">
+    <div class="section-label">✦ Nuestra colección</div>
+    <h2 class="section-title">Elige tu arreglo perfecto</h2>
+    <p class="section-sub">Sin agua. Sin cuidados. Solo flores que se quedan contigo.</p>
+  </div>
+
+  <div class="products-grid" id="products-grid">
+    <!-- Cards generadas por JS -->
+  </div>
+</section>
+
+<!-- ── GALLERY ── -->
+<section id="galeria">
+  <div class="gallery-header">
+    <div class="section-label">✦ Galería</div>
+    <h2 class="section-title">Un universo de<br><em style="font-style:italic;color:var(--gold)">color y belleza</em></h2>
+  </div>
+  <div class="gallery-grid">
+    <div class="g-img"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80&auto=format" alt="flores rosadas" /></div>
+    <div class="g-img"><img src="https://images.unsplash.com/photo-1518895312237-a9e23508077d?w=600&q=80&auto=format" alt="rosas amarillas" /></div>
+    <div class="g-img"><img src="https://images.unsplash.com/photo-1490750967868-88df5691cc78?w=600&q=80&auto=format" alt="flores pastel" /></div>
+    <div class="g-img"><img src="https://images.unsplash.com/photo-1508610048659-a06b669e3321?w=600&q=80&auto=format" alt="arreglo floral" /></div>
+    <div class="g-img"><img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=600&q=80&auto=format" alt="flores eternas" /></div>
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section id="sobre">
+  <div class="about-img">
+    <img src="https://images.unsplash.com/photo-1525310072745-f49212b5ac6d?w=700&q=85&auto=format" alt="Flowering Star - nuestra historia" />
+    <div class="about-img-accent"></div>
+  </div>
+  <div class="about-content">
+    <div class="section-label">✦ Quiénes somos</div>
+    <h2 class="section-title">Nació de querer<br><em style="font-style:italic;color:var(--gold)">regalar diferente</em></h2>
+    <p style="font-size:1rem;line-height:1.8;color:var(--text-mid);margin-bottom:18px;">
+      Flowering Star empezó con una pregunta simple: ¿por qué las flores más bonitas duran tan poco? Así que aprendimos a preservarlas. Una por una. Con paciencia, con cuidado, con mucho amor al detalle.
+    </p>
+    <p style="font-size:1rem;line-height:1.8;color:var(--text-mid);margin-bottom:18px;">
+      No tenemos fórmulas secretas ni procesos industriales. Trabajamos cada arreglo a mano, eligiendo flores en su punto exacto de esplendor para que duren años sin perder ni su color ni su forma.
+    </p>
+    <p style="font-size:1rem;line-height:1.8;color:var(--text-mid);">
+      Somos el regalo que no se riega, no se marchita y no se olvida. 🌹
+    </p>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contacto">
+  <div class="blob" style="width:400px;height:400px;background:#FADADD;top:-100px;right:-100px;"></div>
+  <div class="blob" style="width:300px;height:300px;background:#FFF4B8;bottom:-50px;left:5%;"></div>
+  <div class="section-label">✦ Hablemos</div>
+  <h2 class="section-title" style="color:white;margin-bottom:16px;">Cuéntanos qué<br><em style="font-style:italic;color:var(--gold-light)">quieres regalar</em></h2>
+  <p class="section-sub">Sin formularios raros. Solo escríbenos por WhatsApp y te respondemos rápido.</p>
+  <div class="contact-btns">
+    <a href="https://wa.me/1234567890?text=Hola%2C%20me%20gustar%C3%ADa%20conocer%20m%C3%A1s%20sobre%20sus%20flores%20eternas%20✨" target="_blank" class="btn-wa">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp
+    </a>
+    <a href="https://instagram.com/floweringstar" target="_blank" class="btn-ig">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      Instagram
+    </a>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p>© 2025 <span>Flowering★Star</span>. Flores que duran, emociones que quedan. Hecho con 🌹</p>
+</footer>
+
+<!-- ── CART OVERLAY + DRAWER ── -->
+<div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cart-drawer">
+  <div class="cart-header">
+    <h3 class="cart-title">🛒 Tu pedido</h3>
+    <button class="cart-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cart-items-list"></div>
+  <div class="cart-footer" id="cart-footer" style="display:none">
+    <div class="cart-subtotal">
+      <span>Subtotal (<span id="cart-items-count">0</span> productos)</span>
+      <span id="cart-subtotal-amount">$0</span>
+    </div>
+    <div class="cart-total">
+      <span class="cart-total-label">Total</span>
+      <span class="cart-total-amount" id="cart-total-amount">$0</span>
+    </div>
+    <button class="btn-checkout" id="checkout-btn" onclick="checkoutWhatsApp()">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Finalizar pedido por WhatsApp
+    </button>
+  </div>
+</div>
+
+<!-- ── TOAST ── -->
+<div class="toast" id="toast">✦ Agregado al carrito</div>
+
+<script>
+// ─── PRODUCTOS ───────────────────────────────────────────
+const PRODUCTS = [
+  {
+    id: 1,
+    name: "Sunshine Bloom Box",
+    desc: "Caja dorada con rosas amarillas eternas. Luz en cada pétalo.",
+    price: 85,
+    tag: "⭐ Más vendido",
+    img: "https://images.unsplash.com/photo-1561181286-d3fee7d55364?w=600&q=85&auto=format&fit=crop"
+  },
+  {
+    id: 2,
+    name: "Blush Eternal Roses",
+    desc: "Nueve rosas rosadas preservadas en caja blanca de lujo. Un abrazo que dura.",
+    price: 120,
+    tag: "💕 Romántico",
+    img: "https://images.unsplash.com/photo-1508610048659-a06b669e3321?w=600&q=85&auto=format&fit=crop"
+  },
+  {
+    id: 3,
+    name: "Golden Hour Bouquet",
+    desc: "Ramo de tonos dorados y melocotón preservado. Para los momentos que merecen florecer.",
+    price: 95,
+    tag: "✨ Nuevo",
+    img: "https://images.unsplash.com/photo-1490750967868-88df5691cc78?w=600&q=85&auto=format&fit=crop"
+  },
+  {
+    id: 4,
+    name: "Rose Dome Deluxe",
+    desc: "Una sola rosa, bajo cúpula de cristal. El regalo que no necesita explicación.",
+    price: 75,
+    tag: "🎁 Regalo ideal",
+    img: "https://images.unsplash.com/photo-1487530811015-780bfd4f2f3c?w=600&q=85&auto=format&fit=crop"
+  },
+  {
+    id: 5,
+    name: "Pastel Dream Set",
+    desc: "Mix de flores en rosa, lila y blanco. Hecho a mano, uno diferente al otro.",
+    price: 150,
+    tag: "🌸 Edición especial",
+    img: "https://images.unsplash.com/photo-1518895312237-a9e23508077d?w=600&q=85&auto=format&fit=crop"
+  },
+  {
+    id: 6,
+    name: "Mini Star Arrangement",
+    desc: "Pequeño pero impacta. Flores compactas en caja negra con moño dorado.",
+    price: 55,
+    tag: "💛 Accesible",
+    img: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=600&q=85&auto=format&fit=crop"
+  }
+];
+
+// ─── CART STATE ───────────────────────────────────────────
+let cart = {};
+
+function addToCart(productId) {
+  if (!cart[productId]) cart[productId] = 0;
+  cart[productId]++;
+  updateCartUI();
+  animateBadge();
+  showToast();
+  const btn = document.querySelector(`[data-id="${productId}"]`);
+  if (btn) {
+    btn.classList.add('added');
+    btn.textContent = '✓ Agregado';
+    setTimeout(() => {
+      btn.classList.remove('added');
+      btn.innerHTML = '+ Agregar';
+    }, 1500);
+  }
+}
+
+function changeQty(productId, delta) {
+  if (!cart[productId]) return;
+  cart[productId] += delta;
+  if (cart[productId] <= 0) delete cart[productId];
+  updateCartUI();
+}
+
+function removeFromCart(productId) {
+  delete cart[productId];
+  updateCartUI();
+}
+
+function getTotalItems() {
+  return Object.values(cart).reduce((a,b) => a+b, 0);
+}
+function getTotalPrice() {
+  return Object.entries(cart).reduce((sum, [id, qty]) => {
+    const p = PRODUCTS.find(x => x.id == id);
+    return sum + (p ? p.price * qty : 0);
+  }, 0);
+}
+
+function updateCartUI() {
+  const total = getTotalItems();
+  document.getElementById('cart-badge').textContent = total;
+
+  const listEl = document.getElementById('cart-items-list');
+  const footer = document.getElementById('cart-footer');
+  const countEl = document.getElementById('cart-items-count');
+  const subtotalEl = document.getElementById('cart-subtotal-amount');
+  const totalEl = document.getElementById('cart-total-amount');
+
+  if (total === 0) {
+    listEl.innerHTML = `
+      <div class="cart-empty">
+        <span class="cart-empty-icon">🌸</span>
+        <p>Tu carrito está vacío.<br>¡Elige tus flores favoritas!</p>
+      </div>`;
+    footer.style.display = 'none';
+    return;
+  }
+
+  footer.style.display = 'block';
+  const price = getTotalPrice();
+  countEl.textContent = total;
+  subtotalEl.textContent = `$${price}`;
+  totalEl.textContent = `$${price}`;
+
+  listEl.innerHTML = Object.entries(cart).map(([id, qty]) => {
+    const p = PRODUCTS.find(x => x.id == id);
+    if (!p) return '';
+    return `
+      <div class="cart-item">
+        <img class="cart-item-img" src="${p.img}" alt="${p.name}" />
+        <div class="cart-item-info">
+          <div class="cart-item-name">${p.name}</div>
+          <div class="cart-item-price">$${p.price} c/u</div>
+          <div class="cart-item-controls">
+            <button class="qty-btn" onclick="changeQty(${id}, -1)">−</button>
+            <span class="qty-num">${qty}</span>
+            <button class="qty-btn" onclick="changeQty(${id}, 1)">+</button>
+            <button class="remove-btn" onclick="removeFromCart(${id})">🗑 Quitar</button>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function checkoutWhatsApp() {
+  const lines = Object.entries(cart).map(([id, qty]) => {
+    const p = PRODUCTS.find(x => x.id == id);
+    return `${qty}x ${p.name} ($${p.price * qty})`;
+  });
+  const total = getTotalPrice();
+  const msg = `Hola! 🌸 Quiero realizar el siguiente pedido:\n\n${lines.join('\n')}\n\n💰 *Total: $${total}*\n\n¡Gracias por su atención! ✨`;
+  const encoded = encodeURIComponent(msg);
+  window.open(`https://wa.me/1234567890?text=${encoded}`, '_blank');
+}
+
+function openCart() {
+  document.getElementById('cart-overlay').classList.add('open');
+  document.getElementById('cart-drawer').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeCart() {
+  document.getElementById('cart-overlay').classList.remove('open');
+  document.getElementById('cart-drawer').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function animateBadge() {
+  const badge = document.getElementById('cart-badge');
+  badge.classList.add('pop');
+  setTimeout(() => badge.classList.remove('pop'), 350);
+}
+
+function showToast() {
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ─── RENDER PRODUCTS ─────────────────────────────────────
+function renderProducts() {
+  const grid = document.getElementById('products-grid');
+  grid.innerHTML = PRODUCTS.map(p => `
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="${p.img}" alt="${p.name}" loading="lazy" />
+        <div class="product-tag">${p.tag}</div>
+      </div>
+      <div class="product-body">
+        <h3 class="product-name">${p.name}</h3>
+        <p class="product-desc">${p.desc}</p>
+        <div class="product-footer">
+          <span class="product-price"><sup>$</sup>${p.price}</span>
+          <button class="btn-add" data-id="${p.id}" onclick="addToCart(${p.id})">
+            + Agregar
+          </button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ─── NAV SCROLL ──────────────────────────────────────────
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('main-nav');
+  nav.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// ─── INIT ────────────────────────────────────────────────
+renderProducts();
+updateCartUI();
+</script>
+</body>
+</html>
